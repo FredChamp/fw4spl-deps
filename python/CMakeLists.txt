@@ -4,7 +4,7 @@ project(pythonBuilder)
 
 include(ExternalProject)
 
-set(CACHED_URL http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz)
+set(CACHED_URL http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz)
 
 if(WIN32)
     set(PYTHON_PATCH_DIR ${CMAKE_CURRENT_SOURCE_DIR}/patch)
@@ -41,21 +41,27 @@ else(WIN32)
 
     set(CONFIGURE_CMD <SOURCE_DIR>/configure
                       --enable-shared
-                      --disable-static
+                      #--disable-static
                       --prefix=${CMAKE_INSTALL_PREFIX}
+                      #--with-system-expat
+                      --enable-unicode=ucs4
+                      #--with-expat-prefix=${CMAKE_INSTALL_PREFIX}
+                      #--with-expat-include-prefix=${CMAKE_INSTALL_PREFIX}/include 
+                      #--with-expat-libs-prefix=${CMAKE_INSTALL_PREFIX}/lib
     )
     
     if(${IS_DEBUG})
         list(APPEND CONFIGURE_CMD --with-debug --with-pydebug)
     else(${IS_DEBUG})
-        list(APPEND CONFIGURE_CMD --without-debug)
+        #list(APPEND CONFIGURE_CMD --without-debug)
     endif(${IS_DEBUG})
     ExternalProject_Add(
         python
         URL ${CACHED_URL}
-        URL_HASH SHA256=74d70b914da4487aa1d97222b29e9554d042f825f26cb2b93abd20fdda56b557
+        URL_HASH SHA256=3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6
         DOWNLOAD_DIR ${ARCHIVE_DIR}
         BUILD_IN_SOURCE 1
+        DEPENDS expat
         CONFIGURE_COMMAND ${SETENV} ${CONFIGURE_CMD}
         BUILD_COMMAND ${MAKE} -f <SOURCE_DIR>/Makefile -j${NUMBER_OF_PARALLEL_BUILD}
         INSTALL_COMMAND ${MAKE} -f <SOURCE_DIR>/Makefile DESTDIR=${INSTALL_PREFIX_python} install

@@ -36,16 +36,18 @@ if(NOT ANDROID)
         -DVTK_USE_PARALLEL:BOOL=ON
         -DVTK_USE_HYBRID:BOOL=ON
         -DVTK_Group_Qt:BOOL=OFF
-        -DVTK_WRAP_PYTHON:BOOL=OFF
+        
+        -DVTK_WRAP_PYTHON:BOOL=ON
+        
         -DVTK_MAKE_INSTANTIATORS:BOOL=ON
-        -DVTK_QT_VERSION:STRING=5
+        #-DVTK_QT_VERSION:STRING=5
         -DModule_vtkFiltersFlowPaths:BOOL=ON
-        -DModule_vtkGUISupportQt:BOOL=ON
-        -DModule_vtkGUISupportQtOpenGL:BOOL=ON
+        -DModule_vtkGUISupportQt:BOOL=OFF
+        -DModule_vtkGUISupportQtOpenGL:BOOL=OFF
         -DModule_vtkGUISupportQtWebkit:BOOL=OFF
-        -DModule_vtkGUISupportQtSQL:BOOL=ON
-        -DModule_vtkRenderingQt:BOOL=ON
-        -DModule_vtkViewsQt:BOOL=ON
+        -DModule_vtkGUISupportQtSQL:BOOL=OFF
+        -DModule_vtkRenderingQt:BOOL=OFF
+        -DModule_vtkViewsQt:BOOL=OFF
         -DModule_vtkIOExport:BOOL=ON
         -DModule_vtkImagingStencil:BOOL=ON
         -DModule_vtkImagingStatistics:BOOL=ON
@@ -54,7 +56,7 @@ if(NOT ANDROID)
         -DModule_vtkIOGeometry:BOOL=ON
         -DModule_vtkIOPLY:BOOL=ON  # request for PCL
     )
-    set(EXTRA_DEPENDS qt)
+    #set(EXTRA_DEPENDS qt)
 else( )
     set(CACHED_URL https://github.com/Kitware/VTK/archive/v7.0.0.tar.gz)
     set(VTK_HASHSUM 8edb4a681b948f9c7c318f50d57bc23146095464539bfd00ae09e5158de17b97)

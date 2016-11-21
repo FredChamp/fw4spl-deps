@@ -107,9 +107,10 @@ set(ITK_CMAKE_ARGS ${COMMON_CMAKE_ARGS}
                    -DModule_ITKSpatialFunction:BOOL=ON
                    -DModule_ITKThresholding:BOOL=ON
                    
-                   -DModule_ITKVideoCore:BOOL=ON
-                   -DModule_ITKVideoFiltering:BOOL=ON
-                   -DModule_ITKVideoIO:BOOL=ON
+                   -DModule_ITKVideoCore:BOOL=OFF
+                   -DModule_ITKVideoFiltering:BOOL=OFF
+                   -DModule_ITKVideoIO:BOOL=OFF
+                   
                    -DModule_ITKVoronoi:BOOL=ON
                    -DModule_ITKVTK:BOOL=ON
                    -DModule_ITKWatersheds:BOOL=ON
@@ -121,17 +122,35 @@ set(ITK_CMAKE_ARGS ${COMMON_CMAKE_ARGS}
                    
                    # Disabled because Vxl vidl is not build anymore
                    -DModule_ITKVideoBridgeVXL:BOOL=OFF
-)
+                   
+                   -DUSE_WRAP_ITK:BOOL=ON
+                   -DITK_WRAP_PYTHON:BOOL=ON
+                   -DITK_WRAP_int:BOOL=ON
+                   -DITK_WRAP_float:BOOL=ON
+                   
+                   -DITK_WRAP_unsigned_char:BOOL=ON
+                   -DITK_WRAP_unsigned_short:BOOL=ON
+                   -DITK_WRAP_unsigned_long:BOOL=ON
+                   
+                   -DITK_WRAP_float:BOOL=ON
+                   -DITK_WRAP_vector_float:BOOL=On
+                   -DITK_WRAP_covariant_vector_float:BOOL=ON
+                 
+                   
+                   -DITKGroup_Filtering:BOOL=ON
+                   
+                   
+)       
 
-set(CACHED_URL http://freefr.dl.sourceforge.net/project/itk/itk/4.6/InsightToolkit-4.6.1.tar.gz)
+set(CACHED_URL http://freefr.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-4.9.1.tar.gz)
 set(ITK_PATCH_DIR ${CMAKE_CURRENT_SOURCE_DIR}/patch)
 
 ExternalProject_Add(
     itk
     URL ${CACHED_URL}
-    URL_HASH SHA256=ed42f94c0c0efce3cc5cbcce73052db4029ff54f33aad7340badcd589805c1b6
+    URL_HASH SHA256=4f3f0842bf10a5ba160ac1276f9e8e47e54dcd1fe45b2d93162fe2280eefed0e
     DOWNLOAD_DIR ${ARCHIVE_DIR}
-    PATCH_COMMAND ${CMAKE_COMMAND} -E  copy_directory "${ITK_PATCH_DIR}/" "<SOURCE_DIR>/"
+    #PATCH_COMMAND ${CMAKE_COMMAND} -E  copy_directory "${ITK_PATCH_DIR}/" "<SOURCE_DIR>/"
     DEPENDS zlib jpeg libpng tiff vxl gdcm vtk
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS ${ITK_CMAKE_ARGS}
