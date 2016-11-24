@@ -38,6 +38,8 @@ if(NOT ANDROID)
         -DVTK_Group_Qt:BOOL=OFF
         
         -DVTK_WRAP_PYTHON:BOOL=ON
+        -DModule_vtkFiltersVerdict:BOOL=ON
+        -DModule_vtkImagingMath:BOOL=ON
         
         -DVTK_MAKE_INSTANTIATORS:BOOL=ON
         #-DVTK_QT_VERSION:STRING=5
@@ -96,6 +98,7 @@ else( )
         
        -DModule_vtkFiltersTexture:BOOL=ON
        -DModule_vtkFiltersHybrid:BOOL=ON
+       
         
         # Find utilities build on desktop
         -DVTKCompileTools_DIR:PATH=${CMAKE_CURRENT_BINARY_DIR}/vtk-prefix/src/vtk-build-desktop

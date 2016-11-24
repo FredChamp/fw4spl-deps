@@ -118,7 +118,7 @@ set(ITK_CMAKE_ARGS ${COMMON_CMAKE_ARGS}
 
                    # Disabled on Linux (link errors)
                    -DModule_ITKLevelSetsv4Visualization:BOOL=OFF
-                   -DModule_ITKVtkGlue:BOOL=OFF
+                   -DModule_ITKVtkGlue:BOOL=ON
                    
                    # Disabled because Vxl vidl is not build anymore
                    -DModule_ITKVideoBridgeVXL:BOOL=OFF
